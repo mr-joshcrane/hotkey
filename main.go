@@ -309,6 +309,13 @@ type App struct {
 	progressLabel *canvas.Text
 	hintLabel     *canvas.Text
 
+	// Click grid (4x4)
+	clickGrid      [16]*canvas.Rectangle
+	clickGridTexts [16]*canvas.Text
+	activeCell     int // -1 means no active cell
+	expectedClick  string
+	gridContainer  *fyne.Container
+
 	// Main container that captures input
 	mainContainer *FullWindowInput
 
@@ -332,6 +339,79 @@ type App struct {
 	// Persistent stats
 	stats *AllStats
 }
+
+// GridCell is a clickable cell in the grid
+type GridCell struct {
+	widget.BaseWidget
+	app       *App
+	cellIndex int
+	rect      *canvas.Rectangle
+	text      *canvas.Text
+}
+
+func NewGridCell(app *App, index int) *GridCell {
+	rect := canvas.NewRectangle(color.RGBA{40, 40, 50, 255})
+	rect.SetMinSize(fyne.NewSize(70, 50))
+	rect.CornerRadius = 4
+
+	txt := canvas.NewText("", color.White)
+	txt.TextSize = 12
+	txt.TextStyle = fyne.TextStyle{Bold: true}
+	txt.Alignment = fyne.TextAlignCenter
+
+	gc := &GridCell{
+		app:       app,
+		cellIndex: index,
+		rect:      rect,
+		text:      txt,
+	}
+	gc.ExtendBaseWidget(gc)
+	return gc
+}
+
+func (gc *GridCell) CreateRenderer() fyne.WidgetRenderer {
+	return widget.NewSimpleRenderer(container.NewStack(gc.rect, container.NewCenter(gc.text)))
+}
+
+var _ desktop.Mouseable = (*GridCell)(nil)
+
+func (gc *GridCell) MouseDown(e *desktop.MouseEvent) {
+	if !gc.app.isActive || gc.app.expectedClick == "" {
+		return
+	}
+
+	shift := e.Modifier&fyne.KeyModifierShift != 0
+
+	var clickType string
+	switch e.Button {
+	case desktop.MouseButtonPrimary:
+		if shift {
+			clickType = "SLC"
+		} else {
+			clickType = "LC"
+		}
+	case desktop.MouseButtonSecondary:
+		if shift {
+			clickType = "SRC"
+		} else {
+			clickType = "RC"
+		}
+	case desktop.MouseButtonTertiary:
+		clickType = "MC"
+	default:
+		return
+	}
+
+	// Check if correct cell AND correct click type
+	if gc.cellIndex == gc.app.activeCell && clickType == gc.app.expectedClick {
+		gc.app.addKey(clickType)
+	} else {
+		// Wrong cell or wrong click type
+		gc.app.handleWrongGridClick(clickType, gc.cellIndex)
+	}
+}
+
+func (gc *GridCell) MouseUp(e *desktop.MouseEvent) {}
 
 // FullWindowInput captures all input for the entire window
 type FullWindowInput struct {
@@ -457,24 +537,35 @@ func (fw *FullWindowInput) MouseDown(e *desktop.MouseEvent) {
 		return
 	}
 
+	// If a click is expected, it must be on the grid - ignore clicks elsewhere
+	if fw.app.expectedClick != "" {
+		return
+	}
+
+	// No click expected - this is a wrong click (keyboard was expected)
 	shift := e.Modifier&fyne.KeyModifierShift != 0
 
+	var clickType string
 	switch e.Button {
 	case desktop.MouseButtonPrimary:
 		if shift {
-			fw.app.addKey("SLC")
+			clickType = "SLC"
 		} else {
-			fw.app.addKey("LC")
+			clickType = "LC"
 		}
 	case desktop.MouseButtonSecondary:
 		if shift {
-			fw.app.addKey("SRC")
+			clickType = "SRC"
 		} else {
-			fw.app.addKey("RC")
+			clickType = "RC"
 		}
 	case desktop.MouseButtonTertiary:
-		fw.app.addKey("MC")
+		clickType = "MC"
+	default:
+		return
 	}
+
+	fw.app.addKey(clickType)
 }
 
 func (fw *FullWindowInput) MouseUp(e *desktop.MouseEvent) {}
@@ -534,6 +625,17 @@ func (app *App) setupUI() {
 	app.hintLabel.TextSize = 14
 	app.hintLabel.Alignment = fyne.TextAlignCenter
 
+	// Click grid (4x4)
+	app.activeCell = -1
+	gridCells := make([]fyne.CanvasObject, 16)
+	for i := 0; i < 16; i++ {
+		gc := NewGridCell(app, i)
+		app.clickGrid[i] = gc.rect
+		app.clickGridTexts[i] = gc.text
+		gridCells[i] = gc
+	}
+	app.gridContainer = container.NewGridWithColumns(4, gridCells...)
+
 	// Initial state
 	app.showIdleState()
 
@@ -545,6 +647,7 @@ func (app *App) setupUI() {
 		layout.NewSpacer(),
 		container.NewCenter(app.targetDisplay),
 		container.NewPadded(container.NewCenter(app.inputDisplay)),
+		container.NewCenter(app.gridContainer),
 		layout.NewSpacer(),
 		container.NewCenter(app.statusLabel),
 		container.NewCenter(app.progressLabel),
@@ -718,6 +821,7 @@ func (app *App) nextPattern() {
 	app.progressLabel.Text = fmt.Sprintf("%d patterns remaining", len(app.patternQueue)+1)
 	app.progressLabel.Refresh()
 
+	app.updateClickZone()
 	app.window.Canvas().Focus(app.mainContainer)
 }
 
@@ -728,18 +832,17 @@ func (app *App) addKey(key string) {
 
 	testInput := strings.Join(append(app.inputBuffer, key), "")
 	if !strings.HasPrefix(app.currentPattern.Pattern, testInput) {
-		if len(app.inputBuffer) == 0 {
-			return // Ignore wrong first keystroke
-		}
-
 		position := len(testInput) - len(key)
 		expected := getExpectedKey(app.currentPattern.Pattern, position)
 
-		app.stats.recordMistake(app.currentPattern, position, expected, key)
-		app.stats.save()
+		// Don't penalize first wrong input, but still show feedback
+		if len(app.inputBuffer) > 0 {
+			app.stats.recordMistake(app.currentPattern, position, expected, key)
+			app.stats.save()
+			app.resetCount++
+			app.inputBuffer = []string{}
+		}
 
-		app.resetCount++
-		app.inputBuffer = []string{}
 		app.statusLabel.Text = fmt.Sprintf("❌ Expected %s", formatForDisplay(expected))
 		app.statusLabel.Color = color.RGBA{255, 100, 100, 255}
 		app.statusLabel.Refresh()
@@ -747,6 +850,7 @@ func (app *App) addKey(key string) {
 		app.inputDisplay.Text = "▌"
 		app.inputDisplay.Color = color.RGBA{255, 100, 100, 255}
 		app.inputDisplay.Refresh()
+		app.updateClickZone()
 		return
 	}
 
@@ -765,6 +869,34 @@ func (app *App) addKey(key string) {
 	}
 }
 
+func (app *App) handleWrongGridClick(clickType string, clickedCell int) {
+	position := len(strings.Join(app.inputBuffer, ""))
+	
+	var reason string
+	if clickType != app.expectedClick {
+		reason = fmt.Sprintf("wrong button (got %s)", formatForDisplay(clickType))
+	} else {
+		reason = "wrong cell"
+	}
+
+	// Don't penalize first wrong input, but still show feedback
+	if len(app.inputBuffer) > 0 {
+		app.stats.recordMistake(app.currentPattern, position, app.expectedClick, clickType+" "+reason)
+		app.stats.save()
+		app.resetCount++
+		app.inputBuffer = []string{}
+	}
+
+	app.statusLabel.Text = fmt.Sprintf("❌ %s%s!", strings.ToUpper(reason[:1]), reason[1:])
+	app.statusLabel.Color = color.RGBA{255, 100, 100, 255}
+	app.statusLabel.Refresh()
+
+	app.inputDisplay.Text = "▌"
+	app.inputDisplay.Color = color.RGBA{255, 100, 100, 255}
+	app.inputDisplay.Refresh()
+	app.updateClickZone()
+}
+
 func (app *App) updateInputDisplay() {
 	input := strings.Join(app.inputBuffer, "")
 	if len(input) == 0 {
@@ -775,6 +907,59 @@ func (app *App) updateInputDisplay() {
 		app.inputDisplay.Color = color.RGBA{100, 255, 100, 255}
 	}
 	app.inputDisplay.Refresh()
+	app.updateClickZone()
+}
+
+func (app *App) updateClickZone() {
+	// Reset all cells to inactive
+	for i := 0; i < 16; i++ {
+		app.clickGrid[i].FillColor = color.RGBA{40, 40, 50, 255}
+		app.clickGridTexts[i].Text = ""
+		app.clickGrid[i].Refresh()
+		app.clickGridTexts[i].Refresh()
+	}
+
+	if !app.isActive {
+		app.activeCell = -1
+		app.expectedClick = ""
+		return
+	}
+
+	input := strings.Join(app.inputBuffer, "")
+	nextKey := getExpectedKey(app.currentPattern.Pattern, len(input))
+
+	var clickColor color.RGBA
+	var clickText string
+
+	switch nextKey {
+	case "LC":
+		clickColor = color.RGBA{60, 160, 60, 255}
+		clickText = "L"
+	case "RC":
+		clickColor = color.RGBA{60, 60, 200, 255}
+		clickText = "R"
+	case "MC":
+		clickColor = color.RGBA{160, 60, 160, 255}
+		clickText = "M"
+	case "SLC":
+		clickColor = color.RGBA{160, 160, 60, 255}
+		clickText = "⇧L"
+	case "SRC":
+		clickColor = color.RGBA{60, 160, 160, 255}
+		clickText = "⇧R"
+	default:
+		app.activeCell = -1
+		app.expectedClick = ""
+		return
+	}
+
+	// Pick a random cell
+	app.activeCell = rand.Intn(16)
+	app.expectedClick = nextKey
+	app.clickGrid[app.activeCell].FillColor = clickColor
+	app.clickGridTexts[app.activeCell].Text = clickText
+	app.clickGrid[app.activeCell].Refresh()
+	app.clickGridTexts[app.activeCell].Refresh()
 }
 
 func (app *App) finishPattern() {

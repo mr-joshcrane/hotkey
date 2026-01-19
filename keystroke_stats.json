@@ -1,0 +1,401 @@
+{
+  "pattern_stats": {
+    "1aLC2aLC3aLC": {
+      "pattern": "1aLC2aLC3aLC",
+      "name": "3 Army Cycle",
+      "total_attempts": 2,
+      "perfect_count": 1,
+      "total_resets": 1,
+      "best_time": 1633067900,
+      "total_time": 5932991800,
+      "current_streak": 0,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T16:09:50.94857+08:00",
+      "mistakes": [
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T16:09:47.8317122+08:00"
+        }
+      ]
+    },
+    "1aLC2aLC3aLC4aLC": {
+      "pattern": "1aLC2aLC3aLC4aLC",
+      "name": "4 Army Cycle",
+      "total_attempts": 3,
+      "perfect_count": 2,
+      "total_resets": 2,
+      "best_time": 1500324300,
+      "total_time": 9216643900,
+      "current_streak": 2,
+      "best_streak": 2,
+      "last_practiced": "2026-01-19T15:54:16.4203485+08:00",
+      "mistakes": [
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T15:04:11.2047704+08:00"
+        },
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T15:04:12.6377788+08:00"
+        }
+      ]
+    },
+    "1aLC2aLC3aLC4aLC5aLC": {
+      "pattern": "1aLC2aLC3aLC4aLC5aLC",
+      "name": "5 Army Cycle",
+      "total_attempts": 1,
+      "perfect_count": 1,
+      "total_resets": 0,
+      "best_time": 2850383300,
+      "total_time": 2850383300,
+      "current_streak": 1,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T15:04:09.7381719+08:00",
+      "mistakes": null
+    },
+    "1aLC2aLC3aLC4aLC5aLC6aLC": {
+      "pattern": "1aLC2aLC3aLC4aLC5aLC6aLC",
+      "name": "6 Army Cycle",
+      "total_attempts": 3,
+      "perfect_count": 1,
+      "total_resets": 2,
+      "best_time": 4300193500,
+      "total_time": 17749909100,
+      "current_streak": 0,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T16:05:31.8653729+08:00",
+      "mistakes": [
+        {
+          "position": 2,
+          "expected": "LC",
+          "actual": "2",
+          "timestamp": "2026-01-19T15:50:49.187226+08:00"
+        },
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T16:05:24.4145706+08:00"
+        }
+      ]
+    },
+    "1aLC2aLC3aLC4aLC5aLC6aLC7aLC": {
+      "pattern": "1aLC2aLC3aLC4aLC5aLC6aLC7aLC",
+      "name": "7 Army Cycle",
+      "total_attempts": 4,
+      "perfect_count": 1,
+      "total_resets": 9,
+      "best_time": 3133173400,
+      "total_time": 39184358300,
+      "current_streak": 0,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T16:05:12.2324469+08:00",
+      "mistakes": [
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T15:04:27.4100867+08:00"
+        },
+        {
+          "position": 25,
+          "expected": "a",
+          "actual": "6",
+          "timestamp": "2026-01-19T15:04:31.1548755+08:00"
+        },
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T15:50:33.7206+08:00"
+        },
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T15:50:35.6869003+08:00"
+        },
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T15:57:02.0408536+08:00"
+        },
+        {
+          "position": 20,
+          "expected": "6",
+          "actual": "1",
+          "timestamp": "2026-01-19T15:57:10.3576838+08:00"
+        },
+        {
+          "position": 6,
+          "expected": "LC",
+          "actual": "LC wrong cell",
+          "timestamp": "2026-01-19T16:04:53.3317418+08:00"
+        },
+        {
+          "position": 16,
+          "expected": "5",
+          "actual": "4",
+          "timestamp": "2026-01-19T16:05:01.6648633+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC",
+          "actual": "LC wrong cell",
+          "timestamp": "2026-01-19T16:05:02.8145713+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC",
+          "actual": "LC wrong cell",
+          "timestamp": "2026-01-19T16:05:03.6312432+08:00"
+        },
+        {
+          "position": 4,
+          "expected": "2",
+          "actual": "3",
+          "timestamp": "2026-01-19T16:05:05.0813972+08:00"
+        }
+      ]
+    },
+    "1x4x": {
+      "pattern": "1x4x",
+      "name": "Tank Unsiege",
+      "total_attempts": 1,
+      "perfect_count": 1,
+      "total_resets": 0,
+      "best_time": 1116465400,
+      "total_time": 1116465400,
+      "current_streak": 1,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T15:04:17.6211928+08:00",
+      "mistakes": [
+        {
+          "position": 1,
+          "expected": "x",
+          "actual": "5",
+          "timestamp": "2026-01-19T16:09:52.4318058+08:00"
+        }
+      ]
+    },
+    "1z4z": {
+      "pattern": "1z4z",
+      "name": "Tank Siege",
+      "total_attempts": 2,
+      "perfect_count": 1,
+      "total_resets": 3,
+      "best_time": 917028100,
+      "total_time": 5266718300,
+      "current_streak": 0,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T16:05:20.1312512+08:00",
+      "mistakes": [
+        {
+          "position": 3,
+          "expected": "z",
+          "actual": "a",
+          "timestamp": "2026-01-19T16:05:16.6814942+08:00"
+        },
+        {
+          "position": 1,
+          "expected": "z",
+          "actual": "`",
+          "timestamp": "2026-01-19T16:05:17.2650369+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "4",
+          "actual": "3",
+          "timestamp": "2026-01-19T16:05:18.8648042+08:00"
+        }
+      ]
+    },
+    "3w4w5q6q7q8q": {
+      "pattern": "3w4w5q6q7q8q",
+      "name": "SixFactoryAllIn",
+      "total_attempts": 3,
+      "perfect_count": 3,
+      "total_resets": 0,
+      "best_time": 2749993900,
+      "total_time": 11249789600,
+      "current_streak": 3,
+      "best_streak": 3,
+      "last_practiced": "2026-01-19T16:04:50.0814085+08:00",
+      "mistakes": null
+    },
+    "5cLCSLCcLCSLCcLCSLCcLCSLC": {
+      "pattern": "5cLCSLCcLCSLCcLCSLCcLCSLC",
+      "name": "Irradiate Clone",
+      "total_attempts": 3,
+      "perfect_count": 1,
+      "total_resets": 5,
+      "best_time": 4466760500,
+      "total_time": 63551361200,
+      "current_streak": 0,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T16:05:45.0320767+08:00",
+      "mistakes": [
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:31.4327351+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:34.3989701+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:39.5490007+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC",
+          "actual": "SLC",
+          "timestamp": "2026-01-19T15:54:42.4327122+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:45.1656723+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:47.5997108+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:50.6327206+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:52.4325652+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC (wrong cell)",
+          "actual": "LC",
+          "timestamp": "2026-01-19T15:54:54.8989228+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC",
+          "actual": "SLC",
+          "timestamp": "2026-01-19T15:55:08.8493493+08:00"
+        },
+        {
+          "position": 7,
+          "expected": "c",
+          "actual": "5",
+          "timestamp": "2026-01-19T15:56:17.4743641+08:00"
+        },
+        {
+          "position": 14,
+          "expected": "LC",
+          "actual": "SLC",
+          "timestamp": "2026-01-19T15:56:25.9573918+08:00"
+        },
+        {
+          "position": 7,
+          "expected": "c",
+          "actual": "5",
+          "timestamp": "2026-01-19T15:56:34.6909131+08:00"
+        },
+        {
+          "position": 8,
+          "expected": "LC",
+          "actual": "SLC",
+          "timestamp": "2026-01-19T15:56:38.807463+08:00"
+        },
+        {
+          "position": 14,
+          "expected": "LC",
+          "actual": "SLC wrong button (got ⇧◐)",
+          "timestamp": "2026-01-19T16:05:38.0648939+08:00"
+        }
+      ]
+    },
+    "F4LCF3RCF4LCF3RCF4LCF3RCF4LCF3RCF4LCF3RC": {
+      "pattern": "F4LCF3RCF4LCF3RCF4LCF3RCF4LCF3RCF4LCF3RC",
+      "name": "Rally Cycle",
+      "total_attempts": 3,
+      "perfect_count": 1,
+      "total_resets": 6,
+      "best_time": 4533040900,
+      "total_time": 61734097800,
+      "current_streak": 0,
+      "best_streak": 1,
+      "last_practiced": "2026-01-19T16:05:59.5819075+08:00",
+      "mistakes": [
+        {
+          "position": 8,
+          "expected": "F4",
+          "actual": "F3",
+          "timestamp": "2026-01-19T15:59:34.6100481+08:00"
+        },
+        {
+          "position": 34,
+          "expected": "LC",
+          "actual": "F3",
+          "timestamp": "2026-01-19T15:59:43.943048+08:00"
+        },
+        {
+          "position": 20,
+          "expected": "F3",
+          "actual": "RC",
+          "timestamp": "2026-01-19T15:59:49.6934321+08:00"
+        },
+        {
+          "position": 2,
+          "expected": "LC",
+          "actual": "F3",
+          "timestamp": "2026-01-19T15:59:50.9096774+08:00"
+        },
+        {
+          "position": 32,
+          "expected": "F4",
+          "actual": "F3",
+          "timestamp": "2026-01-19T16:00:02.3434635+08:00"
+        },
+        {
+          "position": 18,
+          "expected": "LC",
+          "actual": "LC wrong cell",
+          "timestamp": "2026-01-19T16:05:50.5983+08:00"
+        }
+      ]
+    }
+  },
+  "sessions": [
+    {
+      "start_time": "2026-01-19T15:03:42.2717727+08:00",
+      "end_time": "2026-01-19T15:04:42.5046783+08:00",
+      "duration": 60232905600,
+      "patterns_total": 12,
+      "patterns_perfect": 10,
+      "completed": true
+    }
+  ],
+  "total_sessions": 1,
+  "total_train_time": 60232905600,
+  "last_updated": "2026-01-19T16:09:52.4318058+08:00"
+}

@@ -21,7 +21,7 @@ Patterns are loaded from `keystroke_patterns.txt` (same directory as executable,
 
 ```
 # Comments start with #
-Pattern Name|1a2a3a4a
+Pattern Name|pattern
 ```
 
 ### Tokens
@@ -35,6 +35,25 @@ Pattern Name|1a2a3a4a
 | `MC` | Middle click |
 | `SLC` | Shift + Left click |
 | `SRC` | Shift + Right click |
+
+### Examples
+
+```
+# Cycle through 3 control groups, attack-move each
+3 Army Cycle|1aLC2aLC3aLC
+
+# Siege tanks on group 1 and 4
+Tank Siege|1z4z
+
+# Irradiate spell cloning: cast, shift-click to queue, repeat
+Irradiate Clone|5cLCSLCcLCSLCcLCSLCcLCSLC
+
+# Alternate between F4 and F3 locations with clicks
+Rally Cycle|F4LCF3RCF4LCF3RCF4LCF3RC
+
+# Queue production across multiple factories
+SixFactoryAllIn|3w4w5q6q7q8q
+```
 
 ## How It Works
 
