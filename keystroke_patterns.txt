@@ -1,0 +1,23 @@
+# Keystroke Trainer Patterns
+# Format: FriendlyName|pattern  OR just pattern (name defaults to pattern)
+# Lines starting with # are comments.
+
+# Army attack cycles - cycle through groups and attack-move
+3 Army Cycle|1aLC2aLC3aLC
+4 Army Cycle|1aLC2aLC3aLC4aLC
+5 Army Cycle|1aLC2aLC3aLC4aLC5aLC
+6 Army Cycle|1aLC2aLC3aLC4aLC5aLC6aLC
+7 Army Cycle|1aLC2aLC3aLC4aLC5aLC6aLC7aLC
+
+# Tank control
+Tank Siege|1z4z
+Tank Unsiege|1x4x
+
+# Spell cloning - select caster, cast, shift-click to queue, repeat
+Irradiate Clone|5cLCSLCcLCSLCcLCSLCcLCSLC
+
+# Rally point management
+Rally Cycle|F4LCF3RCF4LCF3RCF4LCF3RCF4LCF3RCF4LCF3RC
+
+# Six factory all in production
+SixFactoryAllIn|3w4w5q6q7q8q
